@@ -137,10 +137,8 @@ class GettextAdapter
     {
         // assure the path
         $poPath = $this->getModule()->getPath () . DIRECTORY_SEPARATOR . 'po';
-        $poPath = realpath($poPath);
-        if (empty ($poPath) || !is_dir($poPath)){
-            if (!mkdir($poPath))
-                throw new TranslationException('Cannot create the po-file path ' . $poPath);
+        if (!is_dir($poPath) && !mkdir($poPath)) {
+            throw new TranslationException('Cannot create the po-file path ' . $poPath);
         }
 
         // generate the POTFILES.in file
