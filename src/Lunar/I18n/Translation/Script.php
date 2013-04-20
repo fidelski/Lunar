@@ -23,11 +23,12 @@ class Script
     private $application;
 
     /**
-     * Parses the commandline, sets the environment and bootstraps the application
+     * Parses the commandline.
+     * @throws \RuntimeException if the commandline cannot be parsed
      */
     public function __construct()
     {
-        if (($this->_options = static::_getOptions()) == null){
+        if (($this->_options = static::getOptions()) == null){
             throw new \RuntimeException();
         }
     }
@@ -76,11 +77,18 @@ class Script
     }
 
     /**
+     * Factory method.
+     * @return TranslateScript
+     */
+    public static function create ()
+    { return new self (); }
+
+    /**
      * Returns the Zend\Console\Getopt instance for this script
      * @return  Zend\Console\Getopt|null the options for this script or null if an error
      *          occured parsing the commandline
      */
-    private static function _getOptions()
+    protected static function getOptions()
     {
         $options = new \Zend\Console\Getopt(
             array(
@@ -101,11 +109,4 @@ class Script
 
         return $options;
     }
-
-    /**
-     * Factory method.
-     * @return TranslateScript
-     */
-    public static function create ()
-    { return new self (); }
 }
