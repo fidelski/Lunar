@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+// Setup autoloading
+require 'init_autoloader.php';
+
+try {
+    Zend\Mvc\Application::init (require 'config/application.config.php');
+
+    Lunar\I18n\Translation\Script::create ()->run();
+}
+catch (Exception $e) {
+    echo $e->getMessage ();
+    exit (1);
+}

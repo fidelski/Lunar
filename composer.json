@@ -1,0 +1,27 @@
+{
+    "name": "lunar",
+    "type": "library",
+    "version": "1.0",
+    "description": "A library that comes with a set of tools.",
+    "keywords": [ "Lunar", "I18n", "Translation" ],
+    "license": "GPL3",
+    "dist": {
+        "type": "git",
+        "url": "fidel@sphenic.ch:Projects/Lunar"
+    },
+    "bin": [
+        "bin/translate"
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "authors": [
+        {
+            "name": "David Daniel",
+            "email": "david@daniels.li"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "Lunar": "src/" }
+    }
+}
