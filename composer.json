@@ -1,5 +1,5 @@
 {
-    "name": "lunar",
+    "name": "lunar/lunar",
     "type": "library",
     "version": "1.0",
     "description": "A library that comes with a set of tools.",
