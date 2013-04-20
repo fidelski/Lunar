@@ -105,7 +105,7 @@ class Module
             );
 
             foreach ($iter as $fileInfo){
-                $extension = pathinfo($fileInfo->getPathname(), PATHINFO_EXTENSION);
+                $extension = $fileInfo->getExtension ();
 
                 if (empty($extension)) continue;
 
