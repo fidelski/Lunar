@@ -38,7 +38,7 @@ class Module
      * @var array $messageKeywords
      */
     private static $messageKeywords         = array (
-        'translate', 'setLegend', 'setLabel', 'setTitle'
+        'translate', 'setLegend', 'setLabel', 'setTitle', 'setMessage'
     );
 
     /**
