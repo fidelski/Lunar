@@ -153,7 +153,7 @@ class GettextAdapter
         $moduleName = $filter->filter ($this->getModule()->getName());
         $command = 'xgettext ';
 
-        foreach ($this->getModule ()->getMessageIdentifiers () as $keyword){
+        foreach ($this->getModule ()->getMessageKeywords () as $keyword){
             $command .= '--keyword=' . trim($keyword) . ' ';
         }
         $command .= '--default-domain=' . escapeshellarg($moduleName)

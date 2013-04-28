@@ -4,6 +4,8 @@
  */
 namespace Lunar\I18n\Translation;
 
+use Zend\Stdlib\ArrayUtils;
+
 /**
  * Describes a module within the application with its translation sources.
  */
@@ -21,25 +23,19 @@ class Module
     protected $path                         = null;
 
     /** @var array $sourceDirectories */
-    protected static $sourceDirectories     = array (
-        'view', 'src/Form'
-    );
+    protected $sourceDirectories            = array ();
 
     /**
      * All known file extensions
      * @var array $fileExtensions
      */
-    protected static $fileExtensions        = array (
-        'php', 'phtml'
-    );
+    protected $fileExtensions               = array ();
 
     /**
      * The keywords that should trigger an extraction of the message
      * @var array $messageKeywords
      */
-    private static $messageKeywords         = array (
-        'translate', 'setLegend', 'setLabel', 'setTitle', 'setMessage'
-    );
+    protected $messageKeywords              = array ();
 
     /**
      * Constructor
@@ -93,7 +89,7 @@ class Module
     {
         $files = array();
 
-        foreach (self::$sourceDirectories as $sub_directory) {
+        foreach ($this->sourceDirectories as $sub_directory) {
 
             $path = $this->getPath () . DIRECTORY_SEPARATOR . $sub_directory;
 
@@ -109,7 +105,7 @@ class Module
 
                 if (empty($extension)) continue;
 
-                if (in_array($extension, self::$fileExtensions)){
+                if (in_array($extension, $this->fileExtensions)){
                     $files [] = $fileInfo->getPathname ();
                 }
             }
@@ -141,11 +137,58 @@ class Module
     }
 
     /**
+     * Sets the source directories to search for.
+     * @param array | \Traversable $directories
+     * @return Module
+     */
+    public function setSourceDirectories ($directories)
+    {
+        $this->sourceDirectories = ArrayUtils::iteratorToArray ($directories, false);
+        return $this;
+    }
+
+    /**
+     * Returns all source directories.
+     * @return array
+     */
+    public function getSourceDirectories ()
+    { return $this->sourceDirectories; }
+
+    /**
+     * Sets the file extensions to search for.
+     * @param array | \Traversable $fileExtensions
+     * @return Module
+     */
+    public function setFileExtensions ($fileExtensions)
+    {
+        $this->fileExtensions = ArrayUtils::iteratorToArray ($fileExtensions, false);
+        return $this;
+    }
+
+    /**
+     * Returns all file extensions.
+     * @return array
+     */
+    public function getFileExtensions ()
+    { return $this->fileExtensions; }
+
+    /**
+     * Sets all method names that should trigger an extraction of a translatable message.
+     * @param array | \Traversable $messageKeywords
+     * @return Module
+     */
+    public function setMessageKeywords ($messageKeywords)
+    {
+        $this->messageKeywords = ArrayUtils::iteratorToArray ($messageKeywords, false);
+        return $this;
+    }
+
+    /**
      * Returns all method names that should trigger an extraction of a translatable message.
      * @return array all method names that should trigger an extraction of a translatable message
      */
-    public function getMessageIdentifiers ()
-    { return self::$messageKeywords; }
+    public function getMessageKeywords ()
+    { return $this->messageKeywords; }
 
     /**
      * Builds the path to the given module.
