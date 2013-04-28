@@ -6,7 +6,8 @@ use Lunar\I18n\Translation\Translator,
     Lunar\I18n\Translation\TranslationException,
     Lunar\I18n\Translation\Module,
     Lunar\I18n\Translation\Adapter\GettextAdapter,
-    Zend\ServiceManager\ServiceLocatorInterface as ServiceLocator;
+    Zend\ServiceManager\ServiceLocatorInterface as ServiceLocator,
+    Zend\Stdlib\ArrayUtils;
 
 /**
  * Encapsulates the execution of the translation script.
@@ -20,13 +21,14 @@ class Script
     protected $_options = null;
 
     /** @var array $config the configuration */
-    protected $config = array ();
+    protected $config = null;
 
     /**
      * Parses the commandline.
+     * @param array|\Traversable|null $config
      * @throws \RuntimeException if the commandline cannot be parsed
      */
-    public function __construct(array $config = null)
+    public function __construct($config = null)
     {
         if ($config) {
             $this->setConfig ($config);
@@ -77,9 +79,13 @@ class Script
      * Factory method.
      * @return TranslateScript
      */
-    public static function create ()
-    { return new self (); }
+    public static function create (array $config)
+    { return new self ($config); }
 
+    /**
+     * Creates a module according options and config.
+     * @return Module
+     */
     protected function createModule ()
     {
         $module = new Module (
@@ -98,6 +104,11 @@ class Script
         return $module;
     }
 
+    /**
+     * Creates a translator instance that operates on the given module.
+     * @param Module $module the module the translator should operate on
+     * @return Translator
+     */
     protected function createTranslator (Module $module)
     {
         $translator = new Translator ($module);
@@ -110,18 +121,34 @@ class Script
         return $translator;
     }
 
-    public function setConfig (array $config)
+    /**
+     * @param array|\Traversable $config
+     * @return Script
+     */
+    public function setConfig ($config)
     {
-        if (isset ($config ['translation-sources'])) {
-            $config = $config ['translation-sources'];
+        $this->config = new \ArrayObject (
+            ArrayUtils::iteratorToArray ($config),
+            \ArrayObject::ARRAY_AS_PROPS);
+
+        if (isset ($config->translation_sources)) {
+            $config = $config->translation_sources;
         }
-        $this->config = new \ArrayObject ($config, \ArrayObject::ARRAY_AS_PROPS);
 
         return $this;
     }
 
+    /**
+     * @return \ArrayObject
+     */
     public function getConfig ()
-    { return $this->config; }
+    {
+        if (null === $this->config) {
+            $this->config = new \ArrayObject(array (), \ArrayObject::ARRAY_AS_PROPS);
+        }
+
+        return $this->config;
+    }
 
     /**
      * Returns the Zend\Console\Getopt instance for this script
