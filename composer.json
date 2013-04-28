@@ -19,6 +19,9 @@
         }
     ],
     "autoload": {
-        "psr-0": { "Lunar": "src/" }
+        "psr-0": { "Lunar": "src/" },
+        "classmap": [
+            "./Module.php"
+        ]
     }
 }
