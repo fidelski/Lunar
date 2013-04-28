@@ -16,6 +16,7 @@ use Zend\Mvc\MvcEvent;
  * Provides module and autoloader configuration.
  */
 class Module
+    implements AutoloaderProviderInterface, ConfigProviderInterface
 {
     /**
      * @return array
