@@ -21,7 +21,7 @@ class Script
     protected $_options = null;
 
     /** @var array $config the configuration */
-    protected $config = null;
+    protected $config = array ();
 
     /**
      * Parses the commandline.
@@ -92,14 +92,16 @@ class Script
         $module = new Module (
             isset ($this->_options->m) ? $this->_options->m : 'default'
         );
-        if (isset ($this->config->file_extensions)) {
-            $module->setFileExtensions ($this->config->file_extensions);
+
+        $config = $this->getConfig ();
+        if (array_key_exists ('file_extensions', $config)) {
+            $module->setFileExtensions ($config ['file_extensions']);
         }
-        if (isset ($this->config->directories)) {
-            $module->setSourceDirectories ($this->config->directories);
+        if (array_key_exists ('directories', $config)) {
+            $module->setSourceDirectories ($config ['directories']);
         }
-        if (isset ($this->config->keywords)) {
-            $module->setMessageKeywords ($this->config->keywords);
+        if (array_key_exists ('keywords', $config)) {
+            $module->setMessageKeywords ($config ['keywords']);
         }
 
         return $module;
@@ -114,8 +116,9 @@ class Script
     {
         $translator = new Translator ($module);
 
-        if (isset ($this->config->adapter)) {
-            $adapter = new $this->config->adapter ();
+        $config = $this->getConfig ();
+        if (array_key_exists ('adapter', $config)) {
+            $adapter = new $config ['adapter'] ();
             $translator->setAdapter ($adapter);
         }
 
@@ -128,28 +131,22 @@ class Script
      */
     public function setConfig ($config)
     {
-        $this->config = new \ArrayObject (
-            ArrayUtils::iteratorToArray ($config),
-            \ArrayObject::ARRAY_AS_PROPS);
+        $config = ArrayUtils::iteratorToArray ($config, true);
 
-        if (isset ($config->translation_sources)) {
-            $config = $config->translation_sources;
+        if (array_key_exists ('translation_sources', $config)) {
+            $config = $config ['translation_sources'];
         }
+
+        $this->config = $config;
 
         return $this;
     }
 
     /**
-     * @return \ArrayObject
+     * @return array
      */
     public function getConfig ()
-    {
-        if (null === $this->config) {
-            $this->config = new \ArrayObject(array (), \ArrayObject::ARRAY_AS_PROPS);
-        }
-
-        return $this->config;
-    }
+    { return $this->config; }
 
     /**
      * Returns the Zend\Console\Getopt instance for this script
