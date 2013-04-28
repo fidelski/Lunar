@@ -77,9 +77,10 @@ class Script
 
     /**
      * Factory method.
+     * @param array|\Traversable|null $config
      * @return TranslateScript
      */
-    public static function create (array $config)
+    public static function create ($config = null)
     { return new self ($config); }
 
     /**
@@ -114,7 +115,7 @@ class Script
         $translator = new Translator ($module);
 
         if (isset ($this->config->adapter)) {
-            $adapter = new {$this->config->adapter};
+            $adapter = new $this->config->adapter ();
             $translator->setAdapter ($adapter);
         }
 
