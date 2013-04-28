@@ -6,7 +6,6 @@ use Lunar\I18n\Translation\Adapter\TranslationAdapter,
     Lunar\I18n\Translation\Adapter\GettextAdapter,
     Lunar\I18n\Translation\Catalogue\CatalogueInterface;
 
-
 class Translator
 {
     /**

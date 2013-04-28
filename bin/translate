@@ -4,7 +4,13 @@
 require 'init_autoloader.php';
 
 try {
-    Lunar\I18n\Translation\Script::create ()->run();
+    Lunar\I18n\Translation\Script::create (
+        Zend\Stdlib\ArrayUtils::iteratorToArray (
+            Zend\Mvc\Application::init (require 'config/application.config.php')
+            ->getServiceManager ()->get ('Configuration')
+        )
+    )
+    ->run();
 }
 catch (Exception $e) {
     echo $e->getMessage ();
