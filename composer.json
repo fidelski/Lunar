@@ -1,7 +1,7 @@
 {
     "name": "lunar/lunar",
     "type": "library",
-    "version": "1.3",
+    "version": "1.4",
     "description": "A library that comes with a set of tools.",
     "keywords": [ "Lunar", "I18n", "Translation" ],
     "license": "GPL3",
