@@ -21,7 +21,7 @@ class CaptchaImage
     public function createService (ServiceLocator $serviceLocator)
     {
         $config = $serviceLocator->get ('Configuration');
-        if (array_key_exists ('captcha_image')) {
+        if (array_key_exists ('captcha_image', $config)) {
             $config = ArrayUtils::merge (static::$defaultConfig, $config ['captcha_image']);
         }
 
