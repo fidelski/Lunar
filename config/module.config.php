@@ -13,7 +13,7 @@ return array (
 
     'controllers' => array (
         'invokables' => array (
-            'Lunar\Controller\CaptchaImage' => 'Lunar\Controller\CaptchaImageController'
+            'CaptchaImageController' => 'Lunar\Controller\CaptchaImageController'
         )
     ),
 
@@ -25,7 +25,7 @@ return array (
                     'route' => '/lunar',
                     'defaults' => array (
                         __NAMESPACE__ => 'Lunar\Controller',
-                        'controller' => 'CaptchaImage',
+                        'controller' => 'CaptchaImageController',
                         'action' => 'captcha'
                     )
                 ),
@@ -35,7 +35,10 @@ return array (
                     'captcha' => array (
                         'type' => 'segment',
                         'options' => array (
-                            'route' => '/captcha[/:id]'
+                            'route' => '/captcha[/:id]',
+                            'constraints' => array (
+                                'id' => '[0-9a-z]{32}\.png'
+                            )
                         ),
                         'defaults' => array ()
                     )
