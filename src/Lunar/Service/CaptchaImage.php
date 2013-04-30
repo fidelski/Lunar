@@ -25,8 +25,24 @@ class CaptchaImage
             $config = $config ['captcha_image'];
         }
 
-        $image = new Image ($config);
+        $imgDir
+            = array_key_exists ('imgDir', $config)
+            ? $config ['imgDir']
+            : './data/captcha';
 
-        return $image;
+        if (!is_dir ($imgDir) && !mkdir ($imgDir, true)) {
+            throw new \RuntimeException (
+                'Cannot find or create the captcha image directory.'
+            );
+        }
+
+        $config ['imgUrl'] =
+            $serviceLocator->getServiceLocator ()
+            ->get ('Router')
+            ->assemble (
+                array (), array ('name' => 'Lunar/captcha')
+            );
+
+        return new Image ($config);
     }
 }
