@@ -11,7 +11,7 @@ use Zend\Stdlib\ArrayUtils;
  * Provides a captcha image creation service.
  */
 class CaptchaImage
-    implements FactoryInterface;
+    implements FactoryInterface
 {
     /**
      * The default captcha image configuration.
