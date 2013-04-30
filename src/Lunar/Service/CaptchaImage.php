@@ -30,7 +30,7 @@ class CaptchaImage
             ? $config ['imgDir']
             : './data/captcha';
 
-        if (!is_dir ($imgDir) && !mkdir ($imgDir, 0755, true)) {
+        if (!is_dir ($imgDir) && !mkdir ($imgDir, 0700, true)) {
             throw new \RuntimeException (
                 'Cannot find or create the captcha image directory.'
             );
