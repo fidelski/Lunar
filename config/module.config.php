@@ -74,7 +74,7 @@ return array (
 
     // Captcha images
     'captcha_image' => array (
-        // 'font' => 'path/to/font/file.ttf' // default provided
+        'font' => __DIR__ . '/../data/Aerial.ttf',
         'width' => 250,
         'height' => 100,
         'imgDir' => 'data/captcha',
