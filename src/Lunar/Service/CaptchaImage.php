@@ -26,5 +26,7 @@ class CaptchaImage
         }
 
         $image = new Image ($config);
+
+        return $image;
     }
 }
