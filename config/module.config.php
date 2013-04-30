@@ -1,6 +1,49 @@
 <?php
+namespace Lunar;
 
 return array (
+    'service_manager' => array (
+        'shared' => array (
+            'CaptchaImage' => false
+        ),
+        'factories' => array (
+            'CaptchaImage' => 'Lunar\Service\CaptchaImage'
+        )
+    ),
+
+    'controllers' => array (
+        'invokables' => array (
+            'Lunar\Controller\CaptchaImage' => 'Lunar\Controller\CaptchaImageController'
+        )
+    ),
+
+    'router' => array (
+        'routes' =>  array (
+            'Lunar' => array (
+                'type' => 'literal',
+                'options' => array (
+                    'route' => '/lunar',
+                    'defaults' => array (
+                        __NAMESPACE__ => 'Lunar\Controller',
+                        'controller' => 'CaptchaImage',
+                        'action' => 'captcha'
+                    )
+                ),
+                'may_terminate' => true,
+                'child_routes' => array (
+
+                    'captcha' => array (
+                        'type' => 'segment',
+                        'options' => array (
+                            'route' => '/captcha[/:id]'
+                        ),
+                        'defaults' => array ()
+                    )
+                )
+            )
+        )
+    ),
+
     // Translation sources
     'translation_sources' => array (
 
@@ -27,5 +70,15 @@ return array (
             'setTitle',
             'setMessage'
         )
+    ),
+
+    // Captcha images
+    'captcha_image' => array (
+        // 'font' => 'path/to/font/file.ttf' // default provided
+        'width' => 250,
+        'height' => 100,
+        'imgDir' => 'data/captcha',
+        'dotNoiseLevel' => 40,
+        'lineNoiseLevel' => 3
     )
 );
