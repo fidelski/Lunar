@@ -36,12 +36,9 @@ class CaptchaImage
             );
         }
 
-        $config ['imgUrl'] =
-            $serviceLocator->getServiceLocator ()
-            ->get ('Router')
-            ->assemble (
-                array (), array ('name' => 'Lunar/captcha')
-            );
+        $config ['imgUrl'] = $serviceLocator->get ('Router')->assemble (
+            array (), array ('name' => 'Lunar/captcha')
+        );
 
         return new Image ($config);
     }
