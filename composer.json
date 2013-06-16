@@ -2,9 +2,14 @@
     "name": "lunar/lunar",
     "type": "library",
     "version": "1.5.1",
-    "description": "A library that comes with a set of tools.",
-    "keywords": [ "Lunar", "I18n", "Translation" ],
-    "license": "GPL3",
+    "description": "A library and translator tool for rad with zf2.",
+    "keywords": [
+        "library",
+        "zf2",
+        "i18n",
+        "translation"
+    ],
+    "license": "BSD-3-Clause",
     "bin": [
         "bin/translate"
     ],
@@ -15,7 +20,7 @@
     "authors": [
         {
             "name": "David Daniel",
-            "email": "david@daniels.li"
+            "email": "david.daniel@students.ffhs.ch"
         }
     ],
     "autoload": {
