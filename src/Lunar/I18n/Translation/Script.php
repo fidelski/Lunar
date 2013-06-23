@@ -160,7 +160,7 @@ class Script
                 'h|help' => 'Show this help message',
                 'p|prepare' => 'Generate the pot file',
                 'u|update' => 'Update the po files',
-                't|translate' => 'Generate the translation catalogs, the mo-files',
+                't|translate' => 'Generate the translation catalogues, the mo-files',
                 'm|module=s' => 'Translate within the given module'
             )
         );
