@@ -1,9 +1,9 @@
 {
     "name": "lunar/lunar",
     "type": "library",
-    "version": "2.0",
-    "description": "Services and Helpers for the Zend Framework 2",
-    "keywords": [ "ZF2", "I18n", "Translation" ],
+    "version": "2.1",
+    "description": "Services and Helpers for Zend Framework 2",
+    "keywords": [ "ZF2", "I18n", "Translation", "Captcha" ],
     "license": "GPL3",
     "bin": [
         "bin/translate"
